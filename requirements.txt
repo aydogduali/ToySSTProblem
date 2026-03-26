@@ -32,9 +32,9 @@ plotly==6.5.2
 ipykernel==7.2.0
 
 # Anemoi ecosystem
-anemoi-graphs @ git+https://github.com/ecmwf/anemoi-core.git@v0.7.2#subdirectory=graphs
-anemoi-models @ git+https://github.com/ecmwf/anemoi-core.git@0.10.0#subdirectory=models
-anemoi-training @ git+https://github.com/ecmwf/anemoi-core.git@v0.7.0#subdirectory=training
+anemoi-graphs==0.8.5
+anemoi-models==0.10.0
+anemoi-training==0.7.0
 anemoi-datasets==0.5.31
 anemoi-inference==0.9.0
 anemoi-transform==0.1.23
