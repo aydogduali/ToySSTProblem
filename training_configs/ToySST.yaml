@@ -1,0 +1,170 @@
+defaults:
+- data: zarr
+- dataloader: native_grid
+- diagnostics: evaluation
+- system: example
+- graph: multi_scale
+- model: graphtransformer
+- training: default
+- _self_
+
+config_validation: True
+
+graph:
+  nodes:
+    hidden:
+      node_builder:
+        resolution: 4
+
+data:
+  timestep: 24h
+  frequency: 24h
+  resolution: n48
+  datasets:
+    data:
+      forcing:
+        - "cos_latitude"
+        - "cos_longitude"
+        - "sin_latitude"
+        - "sin_longitude"
+        - "cos_julian_day"
+        - "cos_local_time"
+        - "sin_julian_day"
+        - "sin_local_time"
+        - "insolation"
+        - "2t"
+      diagnostic:
+        []
+      processors:
+        normalizer:
+          _target_: anemoi.models.preprocessing.normalizer.InputNormalizer
+          config: ${data.datasets.data.normalizer}
+        const_imputer:
+          _target_: anemoi.models.preprocessing.imputer.ConstantImputer
+          config: ${data.datasets.data.const_imputer}
+      normalizer:
+        default: "mean-std"
+        none:
+          - cos_latitude
+          - cos_longitude
+          - sin_latitude
+          - sin_longitude
+          - cos_julian_day
+          - cos_local_time
+          - sin_julian_day
+          - sin_local_time
+          - insolation
+      const_imputer:
+        0:
+          - sst
+
+model:
+  num_channels: 128
+
+training:
+  max_epochs: 15
+  training_loss:
+    datasets:
+      data:
+        _target_: anemoi.training.losses.MSELoss
+        scalers: ['nan_mask_weights', 'node_weights']
+        ignore_nans: True
+  metrics:
+    datasets:
+      data:
+        - sst
+  max_steps: 25000
+  lr:
+    warmup: 500
+    rate: 5e-4
+    iterations: ${training.max_steps}
+    min: 3e-7 #Not scaled by #GPU
+
+system:
+  hardware:
+    # number of GPUs per node and number of nodes (for DDP)
+    accelerator: auto
+    num_gpus_per_node: 1
+    num_nodes: 1
+    num_gpus_per_model: 1 # running on interactive node
+  input:
+    dataset: /home/ecm4259/ScriptsThings/OceanNotebookExamples/ToySSTDataset.zarr
+    graph: graph_${data.resolution}.pt
+  output:
+    root: ./training_outputs
+
+diagnostics:
+  plot:
+    asynchronous: False
+    datashader: False
+    parameters:
+      - sst
+    callbacks:
+      ## Add plot callbacks here
+      - _target_: anemoi.training.diagnostics.callbacks.plot.PlotLoss
+      ## group parameters by categories when visualizing contributions to the loss
+      ## one-parameter groups are possible to highlight individual parameters
+        dataset_names: ["data"]
+        parameter_groups:
+          surface_ocean: [sst]
+      - _target_: anemoi.training.diagnostics.callbacks.plot.PlotSample
+        dataset_names: ["data"]
+        sample_idx: ${diagnostics.plot.sample_idx}
+        per_sample : 6
+        parameters: ${diagnostics.plot.parameters}
+        colormaps: ${diagnostics.plot.colormaps}
+        accumulation_levels_plot: [0, 0.1, 0.5, 1, 1.5, 5, 10, 100]
+  log:
+    mlflow:
+      enabled: True
+      offline: True
+      authentication: True
+      tracking_uri: https://mlflow.ecmwf.int
+      experiment_name: 'ToySST'
+      run_name: 'testing'
+
+dataloader:
+  num_workers:
+    training: 1
+    validation: 1
+    test: 1
+  batch_size:
+    training: 1
+    validation: 1
+    test: 1
+  limit_batches:
+    training: null
+    validation: null
+  dataset: 
+    - dataset: ${system.input.dataset}
+      start: 2020
+      end: 2024
+      frequency: ${data.frequency}
+      select: [2t, sst, cos_julian_day, sin_julian_day, cos_local_time, sin_local_time,
+               cos_longitude, sin_longitude,cos_latitude, sin_latitude, insolation]
+  training:
+    datasets:
+      data:
+        dataset: ${dataloader.dataset}
+        start: 2020
+        end: 2022
+        frequency: ${data.frequency}
+        trajectory: null
+ 
+  validation:
+    datasets:
+      data:
+        dataset: ${dataloader.dataset}
+        start: 2023
+        end: 2023
+        frequency: ${data.frequency}
+        trajectory: null
+ 
+  test:
+    datasets:
+      data:
+        dataset: ${dataloader.dataset}
+        start: 2024
+        end: 2024
+        frequency: ${data.frequency}
+        trajectory: null

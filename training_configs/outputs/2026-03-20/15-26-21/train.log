@@ -1,0 +1,42 @@
+[2026-03-20 15:26:21,703][anemoi.training.schemas.base_schema][INFO] - adjusting save_dir path to match output mlflow logs
+[2026-03-20 15:26:21,703][anemoi.training.train.train][INFO] - Config validated.
+[2026-03-20 15:26:21,703][anemoi.training.train.train][INFO] - Starting from checkpoint: False
+[2026-03-20 15:26:27,660][anemoi.training.diagnostics.mlflow.logger][INFO] - Maximum number of params allowed to be logged is: 2000
+[2026-03-20 15:26:27,663][anemoi.training.diagnostics.mlflow.logger][INFO] - MLflow is logging offline.
+[2026-03-20 15:26:30,475][anemoi.training.diagnostics.mlflow.logger][INFO] - Terminal Log Path: mlocean_outputs/plots/5a7ff506e7dc4cf49ef1f18e241f18de/plots/terminal_log.txt
+[2026-03-20 15:26:30,475][anemoi.training.diagnostics.mlflow.logger][INFO] - SLURM job id: 31402197
+[2026-03-20 15:26:30,476][anemoi.training.train.train][INFO] - Mlflow Run id: 5a7ff506e7dc4cf49ef1f18e241f18de
+[2026-03-20 15:26:30,476][anemoi.training.train.train][INFO] - Run id: 5a7ff506e7dc4cf49ef1f18e241f18de
+[2026-03-20 15:26:30,476][anemoi.training.train.train][INFO] - Parent run server2server: None
+[2026-03-20 15:26:30,476][anemoi.training.train.train][INFO] - Fork run server2server: None
+[2026-03-20 15:26:30,477][anemoi.training.train.train][INFO] - Checkpoints path: root=PosixPath('mlocean_outputs/checkpoint/5a7ff506e7dc4cf49ef1f18e241f18de') every_n_epochs='anemoi-by_epoch-epoch_{epoch:03d}-step_{step:06d}' every_n_train_steps='anemoi-by_step-epoch_{epoch:03d}-step_{step:06d}' every_n_minutes='anemoi-by_time-epoch_{epoch:03d}-step_{step:06d}'
+[2026-03-20 15:26:30,477][anemoi.training.train.train][INFO] - Plots path: mlocean_outputs/plots/5a7ff506e7dc4cf49ef1f18e241f18de
+[2026-03-20 15:26:30,477][anemoi.training.train.train][INFO] - Dry run: False
+[2026-03-20 15:26:30,810][anemoi.training.train.train][INFO] - Creating graph for dataset 'data'
+[2026-03-20 15:26:32,504][anemoi.graphs.nodes.builders.from_file][INFO] - Reading the dataset from [{'dataset': '../ToySSTDataset.zarr', 'start': 2020, 'end': 2024, 'frequency': '168h', 'select': ['2t', 'sst', 'cos_julian_day', 'sin_julian_day', 'cos_local_time', 'sin_local_time', 'cos_longitude', 'sin_longitude', 'cos_latitude', 'sin_latitude', 'insolation']}].
+[2026-03-20 15:26:41,495][anemoi.graphs.edges.builders.cutoff][INFO] - Using CutOff-Edges (with radius = 605.7 km [factor=0.60]) between data and hidden.
+[2026-03-20 15:26:41,505][anemoi.graphs.edges.builders.base][WARNING] - The 'torch-cluster' library is not installed.
+Installing 'torch-cluster' can significantly improve performance for graph creation.
+You can install it using:
+    TORCH_VERSION=$(python -c "import torch; print(torch.__version__)")
+    pip install torch-cluster -f https://data.pyg.org/whl/torch-${TORCH_VERSION}.html
+
+[2026-03-20 15:26:41,588][anemoi.graphs.edges.builders.cutoff][INFO] - CutOffEdges is removing 34 because they exceed the maximum allowed number of neighbors (64) for each target node.
+[2026-03-20 15:26:43,271][anemoi.graphs.edges.builders.knn][INFO] - Using KNN-Edges (with 3 nearest neighbours) between hidden and data.
+[2026-03-20 15:26:43,272][anemoi.graphs.edges.builders.base][WARNING] - The 'torch-cluster' library is not installed.
+Installing 'torch-cluster' can significantly improve performance for graph creation.
+You can install it using:
+    TORCH_VERSION=$(python -c "import torch; print(torch.__version__)")
+    pip install torch-cluster -f https://data.pyg.org/whl/torch-${TORCH_VERSION}.html
+
+[2026-03-20 15:26:43,319][anemoi.graphs.create][INFO] - Cleaning graph.
+[2026-03-20 15:26:43,319][anemoi.graphs.create][INFO] - _grid_reference_distance deleted from graph.
+[2026-03-20 15:26:43,319][anemoi.graphs.create][INFO] - _dataset deleted from graph.
+[2026-03-20 15:26:43,319][anemoi.graphs.create][INFO] - _grid_reference_distance deleted from graph.
+[2026-03-20 15:26:43,319][anemoi.graphs.create][INFO] - _nx_graph deleted from graph.
+[2026-03-20 15:26:43,319][anemoi.graphs.create][INFO] - _node_ordering deleted from graph.
+[2026-03-20 15:26:43,319][anemoi.graphs.create][INFO] - _resolutions deleted from graph.
+[2026-03-20 15:26:43,357][anemoi.graphs.create][INFO] - Graph saved at graph_n48_data.pt.
+[2026-03-20 15:26:43,357][anemoi.training.data.datamodule][INFO] - Initializing multi-dataset module with datasets: ['data']
+[2026-03-20 15:26:43,358][anemoi.training.data.datamodule][WARNING] - Falling back rollout to: 1
+[2026-03-20 15:26:43,359][anemoi.training.data.dataset][INFO] - Creating NativeGridDataset...

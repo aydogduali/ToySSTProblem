@@ -1,0 +1,21 @@
+checkpoint: ./training_outputs/checkpoint/5ea37a5d9a544356807c3f387d514683/inference-last.ckpt
+lead_time: 360
+date: 2023-01-05
+
+#input: validation
+
+input:
+  dataset:
+    datasets: ./ToySSTDataset.zarr
+    start: 2020-01-01
+    end: 2024-12-31
+
+output:
+  tee:
+    outputs:
+      - truth:
+          output:
+            netcdf:
+              path: Truth.nc
+      - netcdf:
+          path: Predictions.nc
