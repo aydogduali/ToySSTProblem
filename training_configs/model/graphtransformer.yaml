@@ -31,9 +31,8 @@ processor:
   num_heads: 16 # GraphTransformer or Transformer only
   qk_norm: False
   cpu_offload: ${model.cpu_offload}
-  gradient_checkpointing: True
   layer_kernels: ${model.layer_kernels}
-  graph_attention_backend: "triton"  # Options: "triton", "pyg"
+  graph_attention_backend: "pyg"  # Options: "triton", "pyg"
   edge_pre_mlp: False
 
 encoder:
@@ -45,10 +44,9 @@ encoder:
   num_heads: 16 # GraphTransformer or Transformer only
   qk_norm: False
   cpu_offload: ${model.cpu_offload}
-  gradient_checkpointing: True
   layer_kernels: ${model.layer_kernels}
   shard_strategy: "edges"
-  graph_attention_backend: "triton"  # Options: "triton", "pyg"
+  graph_attention_backend: "pyg"  # Options: "triton", "pyg"
   edge_pre_mlp: False
 
 decoder:
@@ -61,10 +59,9 @@ decoder:
   initialise_data_extractor_zero: False
   qk_norm: False
   cpu_offload: ${model.cpu_offload}
-  gradient_checkpointing: True
   layer_kernels: ${model.layer_kernels}
   shard_strategy: "edges"
-  graph_attention_backend: "triton"  # Options: "triton", "pyg"
+  graph_attention_backend: "pyg"  # Options: "triton", "pyg"
   edge_pre_mlp: False
 
 

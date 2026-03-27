@@ -1,4 +1,4 @@
-checkpoint: ./training_outputs/checkpoint/5ea37a5d9a544356807c3f387d514683/inference-last.ckpt
+checkpoint: ./inference-last.ckpt
 lead_time: 360
 date: 2023-01-05
 
