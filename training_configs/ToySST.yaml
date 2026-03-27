@@ -72,8 +72,8 @@ training:
     datasets:
       data:
         - sst
-  max_epochs: 5
-  max_steps: 1000
+  max_epochs: 20
+  max_steps: 100000
   lr:
     warmup: 500
     rate: 5e-4
@@ -88,7 +88,7 @@ system:
     num_nodes: 1
     num_gpus_per_model: 1 # running on interactive node
   input:
-    dataset: ../ToySSTDataset.zarr
+    dataset: ./ToySSTDataset.zarr
     graph: graph_${data.resolution}.pt
   output:
     root: ../training_outputs
@@ -133,8 +133,10 @@ dataloader:
     validation: 1
     test: 1
   limit_batches:
-    training: 100
-    validation: 100
+    #training: 100
+    #validation: 100
+    training: null
+    validation: null
   dataset: 
     - dataset: ${system.input.dataset}
       start: 2020
