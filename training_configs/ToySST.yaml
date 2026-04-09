@@ -72,7 +72,7 @@ training:
     datasets:
       data:
         - sst
-  max_epochs: 20
+  max_epochs: 2
   max_steps: 100000
   lr:
     warmup: 500
@@ -88,11 +88,10 @@ system:
     num_nodes: 1
     num_gpus_per_model: 1 # running on interactive node
   input:
-    dataset: /home/student1/ToySSTProblem/ToySSTDataset.zarr
-    #dataset: s3://ecmwf-training-nwp-ml/ToySSTDataset.zarr
+    dataset: './ToySSTDataset.zarr'
     graph: graph_${data.resolution}.pt
   output:
-    root: /home/student1/ToySSTProblem/training_outputs
+    root: ./new_training_outputs
 
 diagnostics:
   plot:
@@ -120,10 +119,9 @@ diagnostics:
       enabled: True
       offline: True
       authentication: True
-      tracking_uri: https://mlflow.ecmwf.int
+      tracking_uri: file:${system.output.root}/logs/mlflow
       experiment_name: 'ToySST'
-      run_name: 'testing'
-
+      
 dataloader:
   num_workers:
     training: 1
@@ -134,10 +132,10 @@ dataloader:
     validation: 1
     test: 1
   limit_batches:
-    #training: 100
-    #validation: 100
-    training: null
-    validation: null
+    training: 25
+    validation: 25
+    #training: null
+    #validation: null
   dataset: 
     - dataset: ${system.input.dataset}
       start: 2020
