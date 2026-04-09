@@ -2,12 +2,15 @@
 
 # Jupyter
 ipykernel
+s3fs
+obstore
 
 # Anemoi ecosystem
 anemoi-graphs[all]==0.8.4
 anemoi-models==0.12.0
 anemoi-training==0.9.0
 anemoi-inference==0.9.0
+anemoi-datasets==0.5.35
 
 --index-url https://download.pytorch.org/whl/cu124
 --extra-index-url https://pypi.org/simple
