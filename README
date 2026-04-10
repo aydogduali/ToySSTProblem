@@ -1,0 +1,12 @@
+
+This repo contains a very simple toy example of training a model to predict SST at time t+24 hours, on a global 2 degree grid, using the SST and 2m air temperature at time t. 
+
+The problem has been formulated to give a very trivial example of training a model, and running inference (making predictions), within the anemoi ecosystem.
+Its not expected that this model will perform well -- it is just a proof of concept that can be run in minutes, and allows user to get used to training and predictin with ML models within anemoi. 
+
+Data comes from the ECMWF operational model.
+
+If running on an interactive server with only notebook access, clone the directory with 
+!git clone https://github.com/RachelFurner/ToySSTProblem.git
+
+The two notebooks talk you through all that is needed to train the simple model, look at training outputs, run inference, and plot the model outputs. The notebooks include calls to pull data where required, and a requirements.txt to ensure you are running in a suitable environment. However, if running on EDITO or EWC, the data and correct working environment may already be in place.
