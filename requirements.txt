@@ -18,6 +18,3 @@ anemoi-datasets==0.5.35
 torch==2.6.0
 torchvision
 torchaudio
-
---find-links https://data.pyg.org/whl/torch-2.6.0+cu124.html
-torch-cluster
