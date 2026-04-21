@@ -4,6 +4,7 @@
 ipykernel
 s3fs
 obstore
+jupyterlab
 
 # Anemoi ecosystem
 anemoi-graphs[all]==0.8.4
