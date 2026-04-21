@@ -20,6 +20,9 @@ Data comes from the ECMWF operational model.
 ## Environment Setup
 
 Both notebooks require **Python 3.11** and the packages listed in `requirements.txt`.
+Curl is also required, this is often pre-installed, and is picked up if using the Docker set up. If needed, it can be installed with the following:
+- Ubuntu: `sudo apt install curl`
+- macOS: `brew install curl`
 
 ### Option 1 — pip (virtual environment)
 
