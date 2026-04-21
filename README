@@ -1,3 +1,4 @@
+[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3110/)
 
 This repo contains a very simple toy example of training a model to predict SST at time t+24 hours, on a global 2 degree grid, using the SST and 2m air temperature at time t. 
 
