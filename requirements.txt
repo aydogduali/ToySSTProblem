@@ -20,5 +20,4 @@ torch==2.6.0
 torchvision
 torchaudio
 
---find-links https://data.pyg.org/whl/torch-2.6.0+cu124.html
-torch-cluster
+cartopy
