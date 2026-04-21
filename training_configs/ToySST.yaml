@@ -72,10 +72,10 @@ training:
     datasets:
       data:
         - sst
-  max_epochs: 2
-  max_steps: 100000
+  max_epochs: 20
+  max_steps: 2000
   lr:
-    warmup: 500
+    warmup: 10
     rate: 5e-4
     iterations: ${training.max_steps}
     min: 3e-7 #Not scaled by #GPU
@@ -102,10 +102,10 @@ diagnostics:
     callbacks:
       ## Add plot callbacks here
       - _target_: anemoi.training.diagnostics.callbacks.plot.PlotLoss
-      ## group parameters by categories when visualizing contributions to the loss
-      ## one-parameter groups are possible to highlight individual parameters
         dataset_names: ["data"]
         parameter_groups:
+          ## group parameters by categories when visualizing contributions to the loss
+          ## one-parameter groups are possible to highlight individual parameters
           surface_ocean: [sst]
       - _target_: anemoi.training.diagnostics.callbacks.plot.PlotSample
         dataset_names: ["data"]
@@ -121,6 +121,7 @@ diagnostics:
       authentication: True
       tracking_uri: file:${system.output.root}/logs/mlflow
       experiment_name: 'ToySST'
+      run_name: 'testing'
       
 dataloader:
   num_workers:
@@ -132,10 +133,8 @@ dataloader:
     validation: 1
     test: 1
   limit_batches:
-    training: 25
-    validation: 25
-    #training: null
-    #validation: null
+    training: 100 # null for no limit
+    validation: 25 # null for no limit
   dataset: 
     - dataset: ${system.input.dataset}
       start: 2020
