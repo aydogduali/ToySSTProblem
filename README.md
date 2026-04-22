@@ -20,15 +20,17 @@ Data comes from the ECMWF operational model.
 ## Environment Setup
 
 Both notebooks require **Python 3.11** and the packages listed in `requirements.txt`.
-Curl is also required, this is often pre-installed, and is picked up if using the Docker set up. If needed, it can be installed with the following:
+Curl is also required, this is pre-installed on most systems, and also installed within the Docker set up. However, if needed, it can be installed with the following:
 - Ubuntu: `sudo apt install curl`
 - macOS: `brew install curl`
+
+The notebook has the option to pip-install the requirements file within a cell (as long as python 3.11 is being used), providing a temporary working virtual environment with everything needed to run the notebook. Alternatively, you can set up a working environment with one of the below options.
 
 ### Option 1 — pip (virtual environment)
 
 ```bash
-python3.11 -m venv venv
-source venv/bin/activate
+python3.11 -m venv toysst
+source toysst/bin/activate
 pip install --no-cache-dir -r requirements.txt
 ```
 
@@ -49,6 +51,7 @@ docker run --gpus all -p 8888:8888 toysst
 
 ### HPC notes (ECMWF Atos, EWC, EDITO)
 
+#### ECMWF ATOS
 On ECMWF HPC systems the default `$TMPDIR` quota can be too small for large wheels. Override it when installing:
 
 ```bash
@@ -62,6 +65,8 @@ pip install --no-cache-dir --prefix=$PERM/pip_packages -r requirements.txt
 export PYTHONPATH=$PERM/pip_packages/lib/python3.11/site-packages:$PYTHONPATH
 export PATH=$PERM/pip_packages/bin:$PATH
 ```
+
+#### EDITO and EWC
 
 On EDITO or EWC the correct environment and data may already be in place.
 

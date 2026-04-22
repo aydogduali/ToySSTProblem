@@ -12,9 +12,11 @@ RUN python - <<'EOF'
 import zarr, s3fs
 from pathlib import Path
 
-path = Path("/app/ToySSTDataset.zarr")
+path = Path("ToySSTDataset.zarr")
 
-if not path.exists():
+if path.exists():
+    print("ToySST dataset already in place")
+else:
     print("Downloading ToySST dataset during build...")
 
     s3 = s3fs.S3FileSystem(
