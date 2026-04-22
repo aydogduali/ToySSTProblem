@@ -1,4 +1,7 @@
 ## Requires python 3.11.10
+# Works on both CPU-only and GPU platforms.
+# The standard PyPI torch build bundles CUDA libraries (via nvidia-* packages)
+# and automatically uses GPU if available, falling back to CPU otherwise.
 
 # Jupyter
 ipykernel
@@ -13,11 +16,11 @@ anemoi-training==0.9.0
 anemoi-inference==0.9.0
 anemoi-datasets==0.5.35
 
---index-url https://download.pytorch.org/whl/cu124
---extra-index-url https://pypi.org/simple
-
 torch==2.6.0
-torchvision
-torchaudio
+torchvision==0.21.0
+torchaudio==2.6.0
 
 cartopy
+
+# torch-cluster is intentionally omitted — anemoi falls back to scikit-learn
+# for graph construction, which works on all platforms without CUDA dependencies.
