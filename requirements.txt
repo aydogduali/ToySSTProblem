@@ -1,7 +1,9 @@
 ## Requires python 3.11.10
 # Works on both CPU-only and GPU platforms.
-# The standard PyPI torch build bundles CUDA libraries (via nvidia-* packages)
-# and automatically uses GPU if available, falling back to CPU otherwise.
+# torch is installed from the PyTorch CUDA 12.4 index to ensure the CUDA-capable
+# build is always used. This build also runs on CPU-only machines — it is simply
+# larger than the +cpu variant. Without this explicit index URL, anemoi's own
+# dependencies can cause pip to silently install the CPU-only torch first.
 
 # Jupyter
 ipykernel
@@ -16,11 +18,36 @@ anemoi-training==0.9.0
 anemoi-inference==0.9.0
 anemoi-datasets==0.5.35
 
+# numcodecs>=0.13 restructured its blosc C extension in a way that causes a
+# circular import error on Python 3.12. Pin to <0.13 to avoid this.
+numcodecs<0.13
+
+--index-url https://download.pytorch.org/whl/cu124
+--extra-index-url https://pypi.org/simple
+
+# nvidia-cudnn-cu12 provides libcudnn.so.9 as a pip package, so no system-level
+# cuDNN installation is required on platforms where it is absent.
+nvidia-cudnn-cu12
 torch==2.6.0
 torchvision==0.21.0
 torchaudio==2.6.0
 
-cartopy
-
 # torch-cluster is intentionally omitted — anemoi falls back to scikit-learn
 # for graph construction, which works on all platforms without CUDA dependencies.
+
+# torch_geometric (PyG) is required to load anemoi checkpoints — the model
+# architecture classes come from this package and must be importable when
+# unpickling a checkpoint file.
+# torch_scatter and torch_sparse provide CUDA-accelerated message passing;
+# the CUDA builds are fetched from the official PyG wheel index.
+# torch_cluster is intentionally omitted here too (same libcudart reason above).
+--find-links https://data.pyg.org/whl/torch-2.6.0+cu124.html
+torch_geometric>=2.5.0
+torch_scatter
+torch_sparse
+
+# NOTE: after installing, anemoi-inference 0.9.x has a bug in config/couple.py
+# and config/run.py where 'import datetime' (the module) causes pydantic to fail
+# with "TypeError: unsupported operand type(s) for |: 'module' and 'NoneType'"
+# when evaluating the inherited 'date: datetime | None' annotation.
+# The install cell in the notebooks patches these files automatically.
