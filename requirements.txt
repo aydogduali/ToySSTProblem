@@ -18,6 +18,11 @@ anemoi-training==0.9.0
 anemoi-inference==0.9.0
 anemoi-datasets==0.5.35
 
+# cartopy requires libgeos-dev libproj-dev proj-bin system libraries.
+# In Docker these are installed via apt in the Dockerfile.
+# On a bare venv: sudo apt-get install -y libgeos-dev libproj-dev proj-bin proj-data
+cartopy
+
 # numcodecs>=0.13 restructured its blosc C extension in a way that causes a
 # circular import error on Python 3.12. Pin to <0.13 to avoid this.
 numcodecs<0.13
