@@ -124,6 +124,7 @@ diagnostics:
       run_name: 'testing'
       
 dataloader:
+  pin_memory: False
   num_workers:
     training: 1
     validation: 1
