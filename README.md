@@ -51,6 +51,9 @@ docker run --gpus all -p 8888:8888 toysst
 
 ### HPC notes (ECMWF Atos, EWC, EDITO)
 
+#### Local compute
+The code should run on most local compute. It requires around 9GB memory, and will run on both CPU and GPU, but will be very slow on CPU. Ensure to create a suitable environment using either the options within the notebook (setting `do_install = True`), or using one of the methods defined above. 
+
 #### ECMWF ATOS
 On ECMWF HPC systems the default `$TMPDIR` quota can be too small for large wheels. Override it when installing:
 
@@ -66,9 +69,9 @@ export PYTHONPATH=$PERM/pip_packages/lib/python3.11/site-packages:$PYTHONPATH
 export PATH=$PERM/pip_packages/bin:$PATH
 ```
 
-#### EDITO and EWC
+#### EDITO
 
-On EDITO or EWC the correct environment and data may already be in place.
+On EDITO search the service catalogue for `Toy-sst-ml-example-gpu` or `Toy-sst-ml-example-cpu`. The GPU version of the code will run much faster, though is only usable if you have access to GPU resource. The working environment will be atuomatically set up within these services. Open the notebooks (`training_ToySST.ipynb` and then `inference_ToySST.ipynb`) to work through the examples.
 
 ## Quick Start
 
