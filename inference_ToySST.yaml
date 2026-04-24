@@ -7,8 +7,10 @@ date: 2023-01-05
 input:
   dataset:
     datasets: ./ToySSTDataset.zarr
+    # Note these dates define the span of the dataset.
+    # The date being used for inference is listed above
     start: 2020-01-01
-    end: 2024-12-31
+    end: 2024-12-31 
 
 output:
   tee:
