@@ -2,7 +2,7 @@ import zarr
 import s3fs
 from pathlib import Path
 
-path = Path("ToySSTDataset.zarr")
+path = Path("/LocalDir/ToySSTDataset.zarr")
 
 if path.exists():
     print("ToySST dataset already in place")

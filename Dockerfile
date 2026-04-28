@@ -1,7 +1,5 @@
 FROM python:3.11.10-slim
 
-WORKDIR /app
-
 RUN apt-get update && apt-get install -y \
     curl \
     build-essential \
@@ -12,10 +10,15 @@ RUN apt-get update && apt-get install -y \
     proj-data \
     && rm -rf /var/lib/apt/lists/*
 
+# Create the LocalDir layout
+RUN mkdir -p /LocalDir/ToySSTProblem
+
+WORKDIR /LocalDir/ToySSTProblem
+
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# ✅ Download dataset at build time
+# Download dataset into /LocalDir/ToySSTDataset.zarr
 COPY download_dataset.py .
 RUN python download_dataset.py
 
