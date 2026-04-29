@@ -8,7 +8,7 @@ defaults:
 - training: default
 - _self_
 
-config_validation: True
+config_validation: False  # disabled to allow process_group_backend override (schema forbids extra fields)
 
 graph:
   nodes:
@@ -62,6 +62,11 @@ model:
   num_channels: 128
   
 training:
+  strategy:
+    _target_: anemoi.training.distributed.strategy.DDPGroupStrategy
+    num_gpus_per_model: ${system.hardware.num_gpus_per_model}
+    read_group_size: ${dataloader.read_group_size}
+    process_group_backend: "gloo"  # use gloo instead of nccl; avoids NVML P2P query that fails on virtualised GPUs
   training_loss:
     datasets:
       data:
