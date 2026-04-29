@@ -76,7 +76,11 @@ export PATH=$PERM/pip_packages/bin:$PATH
 
 #### EDITO
 
-On EDITO search the service catalogue for `Toy-sst-ml-example-gpu` or `Toy-sst-ml-example-cpu`. The GPU version of the code will run much faster, though is only usable if you have access to GPU resource. The working environment will be automatically set up within these services. Open the notebooks (`training_ToySST.ipynb` and then `inference_ToySST.ipynb`) to work through the examples.
+On EDITO search the service catalogue for `Toy-sst-ml-example-gpu` or `Toy-sst-ml-example-cpu`. The GPU version of the code will run much faster, though is only usable if you have access to GPU resource. The working environment will be automatically set up within these services, and the data already available. Navigate into ToySSTProblem, and open the notebooks (`training_ToySST.ipynb` and then `inference_ToySST.ipynb`) to work through the examples.
+
+#### EWC 
+
+If running on the European Weather Cloud (usually as part of an ECMWF organised training course), the enviroment and data will already be in place. Navigate into ToySSTProblem, and open the notebooks (`training_ToySST.ipynb` and then `inference_ToySST.ipynb`) to work through the examples.
 
 ## Quick Start
 
