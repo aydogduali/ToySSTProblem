@@ -1,5 +1,5 @@
 checkpoint: ../pretrained_outputs/checkpoint/4438386d8b894aa59beb57bb1c7e0b85/inference-last.ckpt
-lead_time: 360
+lead_time: 360  # 15 days (360 hours)
 date: 2023-01-05
 
 #input: validation

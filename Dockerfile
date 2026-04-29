@@ -24,4 +24,8 @@ RUN python download_dataset.py
 
 COPY . .
 
-CMD ["python", "-m", "jupyterlab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--ServerApp.token=", "--ServerApp.password=", "--notebook-dir=/LocalDir"]
+# Generate a random token at startup so the server is not left open to the network.
+# The full URL including the token is printed to the terminal when the container
+# starts — copy and paste it into your browser. If you ran the container detached
+# (-d flag), retrieve the URL with: docker logs <container-id>
+CMD ["sh", "-c", "python -m jupyterlab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --ServerApp.token=$(openssl rand -hex 24) --notebook-dir=/LocalDir"]

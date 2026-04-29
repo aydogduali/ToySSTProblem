@@ -49,6 +49,11 @@ docker build -t toysst .
 docker run --gpus all -p 8888:8888 toysst
 ```
 
+> **Security note:** The container generates a random authentication token at startup.
+> The full URL including the token is printed to the terminal when the container starts —
+> copy and paste it into your browser. If you ran the container in the background
+> (with the `-d` flag), retrieve the URL with `docker logs <container-id>`.
+
 ### HPC notes (ECMWF Atos, EWC, EDITO)
 
 #### Local compute
@@ -71,7 +76,7 @@ export PATH=$PERM/pip_packages/bin:$PATH
 
 #### EDITO
 
-On EDITO search the service catalogue for `Toy-sst-ml-example-gpu` or `Toy-sst-ml-example-cpu`. The GPU version of the code will run much faster, though is only usable if you have access to GPU resource. The working environment will be atuomatically set up within these services. Open the notebooks (`training_ToySST.ipynb` and then `inference_ToySST.ipynb`) to work through the examples.
+On EDITO search the service catalogue for `Toy-sst-ml-example-gpu` or `Toy-sst-ml-example-cpu`. The GPU version of the code will run much faster, though is only usable if you have access to GPU resource. The working environment will be automatically set up within these services. Open the notebooks (`training_ToySST.ipynb` and then `inference_ToySST.ipynb`) to work through the examples.
 
 ## Quick Start
 
@@ -98,6 +103,7 @@ Both notebooks include cells that download the required data (a zarr dataset and
 │   ├── system/               #   Hardware & I/O paths
 │   └── training/             #   LR schedule, loss, scalers
 ├── inference_ToySST.yaml     # Inference run config
+├── download_dataset.py       # Downloads dataset & pretrained outputs (used by Dockerfile build)
 ├── requirements.txt          # Python dependencies
 └── Dockerfile                # Container build file
 ```

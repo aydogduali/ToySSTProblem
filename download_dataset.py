@@ -2,9 +2,10 @@
 ## build. This ensures that the dataset and pretrained outputs are available in the container
 ## in the correct location without needing to download them at runtime.
 
+import tarfile
+import urllib.request
 import zarr
 import s3fs
-import subprocess
 from pathlib import Path
 
 path = Path("/LocalDir/ToySSTDataset.zarr")
@@ -35,10 +36,9 @@ if pretrained_path.exists():
     print("Pretrained outputs already in place")
 else:
     print("Downloading pretrained outputs during build...")
-    subprocess.check_call(
-        "curl -L https://object-store.os-api.cci1.ecmwf.int/ecmwf-training-nwp-ml/pretrained_outputs.tgz | tar xz",
-        shell=True,
-        cwd="/LocalDir"
-    )
+    url = "https://object-store.os-api.cci1.ecmwf.int/ecmwf-training-nwp-ml/pretrained_outputs.tgz"
+    with urllib.request.urlopen(url) as response:
+        with tarfile.open(fileobj=response, mode="r|gz") as tar:
+            tar.extractall(path="/LocalDir")
     print("Pretrained outputs download complete")
 
