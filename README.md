@@ -49,10 +49,7 @@ docker build -t toysst .
 docker run --gpus all -p 8888:8888 toysst
 ```
 
-> **Security note:** The container generates a random authentication token at startup.
-> The full URL including the token is printed to the terminal when the container starts —
-> copy and paste it into your browser. If you ran the container in the background
-> (with the `-d` flag), retrieve the URL with `docker logs <container-id>`.
+> **Note:** JupyterLab token/password authentication is disabled in the container — access is controlled by the EDITO platform proxy. If you expose this container outside of EDITO or another authenticated proxy, you may want to re-enable authentication by removing `--ServerApp.token=` and `--ServerApp.password=` from the `CMD` in the Dockerfile.
 
 ### HPC notes (ECMWF Atos, EWC, EDITO)
 
