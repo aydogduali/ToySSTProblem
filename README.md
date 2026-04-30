@@ -73,7 +73,7 @@ export PATH=$PERM/pip_packages/bin:$PATH
 
 #### EDITO
 
-On EDITO search the service catalogue for `Toy-sst-ml-example-gpu` or `Toy-sst-ml-example-cpu`. The GPU version of the code will run much faster, though is only usable if you have access to GPU resource. The working environment will be automatically set up within these services, and the data already available. Navigate into ToySSTProblem, and open the notebooks (`training_ToySST.ipynb` and then `inference_ToySST.ipynb`) to work through the examples.
+On EDITO search the service catalogue for `Toy-sst-ml-example-gpu` or `Toy-sst-ml-example-cpu`. The GPU version of the code will run much faster, though is only usable if you have access to GPU resource. Click on 'Launch' to begin the service. The working environment will be automatically set up within these services, and the data already available. Navigate into ToySSTProblem, and open the notebooks (`training_ToySST.ipynb` and then `inference_ToySST.ipynb`) to work through the examples.
 
 #### EWC 
 
